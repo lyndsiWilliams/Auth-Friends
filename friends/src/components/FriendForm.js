@@ -3,18 +3,16 @@ import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 class FriendForm extends React.Component {
   state = {
-    newFriend: {
-      id: Date.now(),
-      name: '',
-      age: '',
-      email: ''
-    }
+    name: '',
+    age: '',
+    email: ''
   };
   
   submit = e => {
     e.preventDefault();
+    console.log("Submit has committed!!!")
     axiosWithAuth()
-      .post('/friends', this.newFriend)
+      .post('/friends', this.state)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
@@ -33,7 +31,7 @@ class FriendForm extends React.Component {
           type="name" 
           name="name" 
           placeholder="name"
-          value={newFriend.name} 
+          value={this.name} 
           onChange={this.handleChanges} 
           />
         <input 

@@ -30,7 +30,7 @@ class FriendsList extends React.Component {
     console.log(friendsList.friendsList);
     return (
       <div>
-        ||||FriendsList Placeholder||||
+        ||||FriendsList Component||||
         {friendsList.friendsList.map(friend => (
           <p key={friend.id}>Name: {friend.name} <br/>Age: {friend.age} <br/>Email: {friend.email}</p>
         ))}
