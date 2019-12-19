@@ -15,6 +15,14 @@ class FriendsList extends React.Component {
     this.getData();
   }
 
+  componentDidUpdate(prevprops, prevstate) {
+    console.log("Component Did Update");
+    if (prevstate.friendsList.length !== this.state.friendsList.length){
+      console.log("CDU if statement", prevstate);
+      this.getData();
+    }
+  }
+
   getData = () => {
     axiosWithAuth()
       .get('/friends')
@@ -35,7 +43,7 @@ class FriendsList extends React.Component {
           <p key={friend.id}>Name: {friend.name} <br/>Age: {friend.age} <br/>Email: {friend.email}</p>
         ))}
         Create a new Friend!
-        <FriendForm />
+        <FriendForm friendsList={this.state.friendsList} getData={this.getData} />
       </div>
     );
   }

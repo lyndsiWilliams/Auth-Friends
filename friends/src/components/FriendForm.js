@@ -2,19 +2,26 @@ import React from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 class FriendForm extends React.Component {
-  state = {
-    name: '',
-    age: '',
-    email: ''
-  };
-  
+  // constructor and super
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      age: '',
+      email: ''
+    };
+  }
+
   submit = e => {
     e.preventDefault();
     console.log("Submit has committed!!!")
+    // const friendsList = this.props.friendsList;
+    console.log(this.props);
     axiosWithAuth()
       .post('/friends', this.state)
-      .then(res => console.log(res))
+      .then(res => this.setState({friendsList: res.data}))
       .catch(err => console.log(err));
+    this.props.getData();
   };
 
   handleChanges = e => {
@@ -23,19 +30,20 @@ class FriendForm extends React.Component {
   }
 
   render() {
+    console.log("DID RENDER", this.props);
     const newFriend = this.state;
     console.log(newFriend);
     return (
       <form onSubmit={this.submit}>
         <input 
-          type="name" 
+          type="text" 
           name="name" 
           placeholder="name"
           value={this.name} 
           onChange={this.handleChanges} 
           />
         <input 
-          type="age" 
+          type="text" 
           name="age" 
           placeholder="age"
           value={newFriend.age} 
